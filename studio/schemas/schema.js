@@ -14,7 +14,7 @@ export default createSchema({
     [
       {
         name: 'users',
-        title: 'Users',
+        title: 'Users ',
         type: 'document',
         fields: [
           {
