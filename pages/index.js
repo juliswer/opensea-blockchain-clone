@@ -2,6 +2,7 @@ import Header from "../components/Header";
 import { useEffect } from "react";
 import Hero from "../components/Hero";
 import { useWeb3 } from "@3rdweb/hooks";
+import { client } from "../lib/sanityClient";
 
 const style = {
   wrapper: ``,
@@ -12,10 +13,9 @@ const style = {
 
 export default function Home() {
   const { address, connectWallet } = useWeb3();
-
   useEffect(() => {
     if (!address) return;
-    ;(async () => {
+    (async () => {
       const userDoc = {
         _type: "users",
         _id: address,
@@ -23,7 +23,8 @@ export default function Home() {
         walletAddress: address,
       };
 
-      // const result = await client.createIfNotExists(userDoc);
+      const result = await client.createIfNotExists(userDoc);
+      console.log(result)
     })();
   }, [address]);
 
