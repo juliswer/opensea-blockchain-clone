@@ -9,7 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@3rdweb/hooks": "^1.9.2",
+    "@3rdweb/hooks": "^1.8.0",
+    "@3rdweb/sdk": "^1.42.1",
     "next": "12.1.6",
     "react": "18.1.0",
     "react-dom": "18.1.0",

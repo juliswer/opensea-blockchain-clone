@@ -24,10 +24,11 @@ export default function Home() {
             className={style.button}
             onClick={() => connectWallet("injected")}
           >
-            Connect Wallter
+            Connect Wallet
           </button>
           <div className={style.details}>
-            You need Chrome to be <br /> abel to run this app.
+            You need Chrome to be
+            <br /> able to run this app.
           </div>
         </div>
       )}
