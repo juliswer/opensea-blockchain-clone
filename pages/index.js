@@ -1,4 +1,5 @@
 import Header from "../components/Header";
+import { useEffect } from "react";
 import Hero from "../components/Hero";
 import { useWeb3 } from "@3rdweb/hooks";
 
@@ -11,7 +12,21 @@ const style = {
 
 export default function Home() {
   const { address, connectWallet } = useWeb3();
-  console.log(`This is the address ${address}`)
+
+  useEffect(() => {
+    if (!address) return;
+    ;(async () => {
+      const userDoc = {
+        _type: "users",
+        _id: address,
+        userName: "Unnamed",
+        walletAddress: address,
+      };
+
+      // const result = await client.createIfNotExists(userDoc);
+    })();
+  }, [address]);
+
   return (
     <div className={style.wrapper}>
       {address ? (
