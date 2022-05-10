@@ -10,7 +10,7 @@ const style = {
 };
 
 export default function Home() {
-  const { address, connectWallte } = useWeb3();
+  const { address, connectWallet } = useWeb3();
   return (
     <div className={style.wrapper}>
       {address ? (
@@ -19,12 +19,17 @@ export default function Home() {
           <Hero />
         </>
       ) : (
-        <button
-          className={style.button}
-          onClick={() => connectWallte('injected')}
-        >
-          Connect Wallter
-        </button>
+        <div className={style.walletConnectWrapper}>
+          <button
+            className={style.button}
+            onClick={() => connectWallet("injected")}
+          >
+            Connect Wallter
+          </button>
+          <div className={style.details}>
+            You need Chrome to be <br /> abel to run this app.
+          </div>
+        </div>
       )}
     </div>
   );
