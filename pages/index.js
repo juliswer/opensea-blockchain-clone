@@ -11,6 +11,7 @@ const style = {
 
 export default function Home() {
   const { address, connectWallet } = useWeb3();
+  console.log(`This is the address ${address}`)
   return (
     <div className={style.wrapper}>
       {address ? (
