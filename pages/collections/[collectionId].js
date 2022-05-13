@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useWeb3 } from "@3rdweb/hooks";
 import { ThirdwebSDK } from "@3rdweb/sdk";
+import { client } from "../../lib/sanityClient";
 
 const style = {
   bannerImageContainer: `h-[20vh] w-screen overflow-hidden flex justify-center items-center`,
@@ -32,13 +33,69 @@ const Collection = () => {
   const { collectionId } = router.query;
   const [nfts, setNfts] = useState([]);
   const [listings, setListings] = useState([]);
+  const [collection, setCollection] = useState({});
 
   const ALCHEMY_KEY_HTTPS = process.env.NEXT_PUBLIC_ALCHEMY_KEY_HTTPS;
-  console.log(ALCHEMY_KEY_HTTPS);
+  const MARKETPLACE_ADDRESS = process.env.NEXT_PUBLIC_MARKETPLACE_ADDRESS;
 
   const nftModule = useMemo(() => {
-    const sdk = new ThirdwebSDK(provider.getSigner());
-  });
+    if (!provider) return;
+    const sdk = new ThirdwebSDK(
+      provider.getSigner(),
+      ALCHEMY_KEY_HTTPS
+    );
+    return sdk.getNFTModule(collectionId);
+  }, [provider]);
+
+  useEffect(() => {
+    if (!nftModule) return;
+    ;(async () => {
+      const nfts = await nftModule.getAll();
+      setNfts(nfts)
+    })();
+  }, [nftModule]);
+
+  const marketPlaceModule = useMemo(() => {
+    if(!provider) return
+    const sdk = new ThirdwebSDK(
+      provider.getSigner(),
+    )
+    return sdk.getMarketplaceModule(
+      ALCHEMY_KEY_HTTPS,
+      MARKETPLACE_ADDRESS
+    )
+  }, [provider]);
+
+  useEffect(() => {
+    if(!marketPlaceModule) return
+
+    ;(async () => {
+      setListings(await marketPlaceModule.getListings(collectionId))
+    })();
+
+  }, [marketPlaceModule]);
+
+  const fetchCollectionData = async (sanityClient = client) => {
+    const query = `*[_type == "marketItems" && contractAddress == "${collectionId}" ] {
+      "imageUrl": profileImage.asset->url,
+      "bannerImageUrl": bannerImage.asset->url,
+      volumeTraded,
+      createdBy,
+      contractAddress,
+      "creator": createdBy->userName,
+      title, floorPrice,
+      "allOwners": owners[]->,
+      description
+    }`
+
+    const collectionData = await sanityClient.fetch(query);
+    console.log(collectionData[0]);
+    await setCollection(collectionData[0]);
+  }
+
+  useEffect(() => {
+    fetchCollectionData();
+  }, [collectionId]);
 
   return (
     <Link href="/">
