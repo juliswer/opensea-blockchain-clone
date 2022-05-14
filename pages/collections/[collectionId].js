@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useWeb3 } from "@3rdweb/hooks";
 import { ThirdwebSDK } from "@3rdweb/sdk";
 import { client } from "../../lib/sanityClient";
+import Header from '../../components/Header';
+import {CgWebsite} from 'react-icons/cg';
 
 const style = {
   bannerImageContainer: `h-[20vh] w-screen overflow-hidden flex justify-center items-center`,
