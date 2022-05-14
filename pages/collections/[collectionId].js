@@ -8,6 +8,7 @@ import Header from "../../components/Header";
 import { CgWebsite } from "react-icons/cg";
 import { AiOutlineInstagram, AiOutlineTwitter } from "react-icons/ai";
 import { HiDotsVertical } from "react-icons/hi";
+import NftCard from "../../components/NftCard";
 
 const style = {
   bannerImageContainer: `h-[20vh] w-screen overflow-hidden flex justify-center items-center`,
@@ -92,9 +93,58 @@ const Collection = () => {
   }, [collectionId]);
 
   return (
-    <Link href="/">
-      <h2>Great, the collection is: {collectionId}</h2>
-    </Link>
+    <div className="overflow-hidden">
+      <Header />
+      <div className={style.bannerImageContainer}>
+        <img
+          className={style.bannerImage}
+          src={
+            collection?.bannerImageUrl
+              ? collection.bannerImageUrl
+              : "https://via.placeholder.com/200"
+          }
+          alt="banner"
+        />
+      </div>
+      <div className={style.infoContainer}>
+        <div className={style.midRow}>
+          <img
+            className={style.profileImg}
+            src={
+              collection?.imageUrl
+                ? collection.imageUrl
+                : "https://via.placeholder.com/200"
+            }
+          />
+        </div>
+      </div>
+      <div className={style.endRow}>
+        <div className={style.socialIconsContainer}>
+          <div className={style.socialIconsWrapper}>
+            <div className={style.socialIconsContent}>
+              <div className={style.socialIcon}>
+                <CgWebsite />
+              </div>
+              <div className={style.divider} />
+              <div className={style.socialIcon}>
+                <AiOutlineInstagram />
+              </div>
+              <div className={style.divider} />
+              <div className={style.socialIcon}>
+                <AiOutlineTwitter />
+              </div>
+              <div className={style.divider} />
+              <div className={style.socialIcon}>
+                <HiDotsVertical />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={style.midRow}>
+        <div className={style.title}>{collection?.title}</div>
+      </div>
+    </div>
   );
 };
 
