@@ -66,7 +66,7 @@ const Collection = () => {
   useEffect(() => {
     if (!marketPlaceModule) return;
     (async () => {
-      setListings(await marketPlaceModule.getListings(collectionId));
+      setListings(await marketPlaceModule.getAllListings());
     })();
   }, [marketPlaceModule]);
 
@@ -84,7 +84,6 @@ const Collection = () => {
     }`;
 
     const collectionData = await sanityClient.fetch(query);
-    console.log(collectionData[0]);
     await setCollection(collectionData[0]);
   };
 
@@ -103,7 +102,7 @@ const Collection = () => {
               ? collection.bannerImageUrl
               : "https://via.placeholder.com/200"
           }
-          alt="banner"
+          alt="bannerr"
         />
       </div>
       <div className={style.infoContainer}>
@@ -188,6 +187,16 @@ const Collection = () => {
       </div>
       <div className={style.midRow}>
         <div className={style.description}>{collection?.description}</div>
+      </div>
+      <div className="flex flex-wrap">
+        {nfts.map((nftItem, id) => (
+          <NftCard
+            key={id}
+            nftItem={nftItem}
+            title={collection?.title}
+            listings={listings}
+          />
+        ))}
       </div>
     </div>
   );
