@@ -146,17 +146,48 @@ const Collection = () => {
       </div>
       <div className={style.midRow}>
         <div className={style.createdBy}>
-          Created by {" "}
+          Created by{" "}
           <span className="text-[#2081e2]">{collection?.creator}</span>
         </div>
       </div>
       <div className={style.midRow}>
-          <div className={style.statsContainer}>
-            <div className={style.collectionStat}>
-              <div className={style.statValue}>{nfts.length}</div>
-              <div className={style.statName}>Items</div>
-            </div>
+        <div className={style.statsContainer}>
+          <div className={style.collectionStat}>
+            <div className={style.statValue}>{nfts.length}</div>
+            <div className={style.statName}>Items</div>
           </div>
+          <div className={style.collectionStat}>
+            <div className={style.statValue}>
+              {collection?.allOwners ? collection.allOwners.length : ""}
+            </div>
+            <div className={style.statName}>owners</div>
+          </div>
+          <div className={style.collectionStat}>
+            <div className={style.statValue}>
+              <img
+                src="https://storage.opensea.io/files/6f8e2979d428180222796ff4a33ab929.svg"
+                alt="eth"
+                className={style.ethLogo}
+              />
+              {collection?.floorPrice}
+            </div>
+            <div className={style.statName}>floor price</div>
+          </div>
+          <div className={style.collectionStat}>
+            <div className={style.statValue}>
+              <img
+                src="https://storage.opensea.io/files/6f8e2979d428180222796ff4a33ab929.svg"
+                alt="eth"
+                className={style.ethLogo}
+              />
+              {collection?.volumeTraded}.5K
+            </div>
+            <div className={style.statName}>volume traded</div>
+          </div>
+        </div>
+      </div>
+      <div className={style.midRow}>
+        <div className={style.description}>{collection?.description}</div>
       </div>
     </div>
   );
