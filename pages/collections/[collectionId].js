@@ -60,7 +60,6 @@ const Collection = () => {
   const marketPlaceModule = useMemo(() => {
     if (!provider) return;
     const sdk = new ThirdwebSDK(provider.getSigner(), ALCHEMY_KEY_HTTPS);
-
     return sdk.getMarketplaceModule(MARKETPLACE_ADDRESS);
   }, [provider]);
 
@@ -146,7 +145,7 @@ const Collection = () => {
       </div>
       <div className={style.midRow}>
         <div className={style.createdBy}>
-          Created by {" "}
+          Created by{" "}
           <span className="text-[#2081e2]">{collection?.creator}</span>
         </div>
       </div>
